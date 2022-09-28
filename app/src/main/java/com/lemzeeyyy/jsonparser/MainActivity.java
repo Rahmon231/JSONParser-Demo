@@ -1,6 +1,7 @@
 package com.lemzeeyyy.jsonparser;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -25,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         try {
-            JSONObject json = new JSONObject("loadJSONFromAsset");
+            JSONObject json = new JSONObject(loadJSONFromAsset());
             JSONArray array = json.getJSONArray("users");
             for (int i = 0; i < array.length(); i++) {
                 JSONObject userDetails = array.getJSONObject(i);
@@ -39,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        CustomAdapter adapter = new CustomAdapter(personNames,emailIds,mobileNumbers,getApplicationContext());
+        recyclerView.setAdapter(adapter);
     }
     private String loadJSONFromAsset(){
-        String json;
-        json = null;
+        String json = null;
         try {
             InputStream is = getAssets().open("users_list.json");
             int size = is.available();
