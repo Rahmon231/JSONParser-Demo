@@ -39,7 +39,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         holder.email.setText(emailIds.get(position));
 
         holder.itemView.setOnClickListener(v -> {
-            Toast.makeText(ctx, personNames.get(position), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, personNames.get(position)+"clicked", Toast.LENGTH_SHORT).show();
         });
     }
 
